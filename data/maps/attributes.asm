@@ -236,6 +236,8 @@ ENDM
 	connection north, PewterCity, PEWTER_CITY, -5
 	connection south, ViridianCity, VIRIDIAN_CITY, -5
 
+	map_attributes ViridianForest, VIRIDIAN_FOREST, $1d, 0
+
 	map_attributes ViridianCity, VIRIDIAN_CITY, $0f, NORTH | SOUTH | WEST
 	connection north, Route2, ROUTE_2, 5
 	connection south, Route1, ROUTE_1, 10

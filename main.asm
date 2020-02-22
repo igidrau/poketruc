@@ -197,8 +197,6 @@ INCLUDE "engine/events/buena_menu.asm"
 
 SECTION "bank13", ROMX
 
-INCLUDE "engine/tilesets/map_palettes.asm"
-INCLUDE "gfx/tileset_palette_maps.asm"
 INCLUDE "data/collision_permissions.asm"
 INCLUDE "engine/menus/empty_sram.asm"
 INCLUDE "engine/menus/savemenu_copytilemapatonce.asm"
@@ -216,6 +214,7 @@ INCLUDE "engine/link/link_2.asm"
 INCLUDE "engine/rtc/reset_password.asm"
 INCLUDE "engine/menus/delete_save.asm"
 INCLUDE "data/tilesets.asm"
+INCLUDE "gfx/tilesets.asm"
 INCLUDE "engine/smallflag.asm"
 INCLUDE "engine/gfx/trademon_frontpic.asm"
 INCLUDE "engine/events/pokerus/check_pokerus.asm"

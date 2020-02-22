@@ -57,6 +57,7 @@ Landmarks:
 	landmark  52,  92, Route1Name
 	landmark  52,  76, ViridianCityName
 	landmark  52,  64, Route2Name
+	landmark  52,  64, ViridianForestName
 	landmark  52,  52, PewterCityName
 	landmark  64,  52, Route3Name
 	landmark  76,  52, MtMoonName
@@ -190,6 +191,7 @@ Route43Name:         db "ROUTE 43@"
 Route44Name:         db "ROUTE 44@"
 Route45Name:         db "ROUTE 45@"
 Route46Name:         db "ROUTE 46@"
+ViridianForestName:  db "VIRIDIAN¯FOREST@"
 DarkCaveName:        db "DARK CAVE@"
 IlexForestName:      db "ILEX¯FOREST@"
 BurnedTowerName:     db "BURNED¯TOWER@"

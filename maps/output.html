@@ -1,0 +1,398 @@
+<!DOCTYPE html PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<HTML>
+<HEAD>
+<TITLE>Enscript Output</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#1F00FF" ALINK="#FF0000" VLINK="#9900DD">
+<A NAME="top">
+<A NAME="file1">
+<H1>AzaleaGym.asm</H1>
+
+<PRE>
+	<B><FONT COLOR="#A020F0">object_const_def</FONT></B> <I><FONT COLOR="#B22222">; object_event constants
+	const AZALEAGYM_BUGSY
+</FONT></I>	<B><FONT COLOR="#A020F0">const</FONT></B> AZALEAGYM_BUG_CATCHER1
+	<B><FONT COLOR="#A020F0">const</FONT></B> AZALEAGYM_BUG_CATCHER2
+	<B><FONT COLOR="#A020F0">const</FONT></B> AZALEAGYM_BUG_CATCHER3
+	<B><FONT COLOR="#A020F0">const</FONT></B> AZALEAGYM_TWIN1
+	<B><FONT COLOR="#A020F0">const</FONT></B> AZALEAGYM_TWIN2
+	<B><FONT COLOR="#A020F0">const</FONT></B> AZALEAGYM_GYM_GUY
+
+<B><FONT COLOR="#0000FF">AzaleaGym_MapScripts:</FONT></B>
+	<B><FONT COLOR="#A020F0">db</FONT></B> 0 <I><FONT COLOR="#B22222">; scene scripts
+
+</FONT></I>	<B><FONT COLOR="#A020F0">db</FONT></B> 0 <I><FONT COLOR="#B22222">; callbacks
+
+</FONT></I><B><FONT COLOR="#0000FF">AzaleaGymBugsyScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">faceplayer
+</FONT></B>	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">checkevent</FONT></B> EVENT_BEAT_BUGSY
+	<B><FONT COLOR="#A020F0">iftrue</FONT></B> .FightDone
+	<B><FONT COLOR="#A020F0">writetext</FONT></B> BugsyText_INeverLose
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">winlosstext</FONT></B> BugsyText_ResearchIncomplete, 0
+	<B><FONT COLOR="#A020F0">loadtrainer</FONT></B> BUGSY, BUGSY1
+	<B><FONT COLOR="#A020F0">startbattle
+</FONT></B>	<B><FONT COLOR="#A020F0">reloadmapafterbattle
+</FONT></B>	<B><FONT COLOR="#A020F0">setevent</FONT></B> EVENT_BEAT_BUGSY
+	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> Text_ReceivedHiveBadge
+	<B><FONT COLOR="#A020F0">playsound</FONT></B> SFX_GET_BADGE
+	<B><FONT COLOR="#A020F0">waitsfx
+</FONT></B>	<B><FONT COLOR="#A020F0">setflag</FONT></B> ENGINE_HIVEBADGE
+	<B><FONT COLOR="#A020F0">readvar</FONT></B> VAR_BADGES
+	<B><FONT COLOR="#A020F0">scall</FONT></B> AzaleaGymActivateRockets
+<B><FONT COLOR="#0000FF">.FightDone:</FONT></B>
+	<B><FONT COLOR="#A020F0">checkevent</FONT></B> EVENT_GOT_TM49_FURY_CUTTER
+	<B><FONT COLOR="#A020F0">iftrue</FONT></B> .GotFuryCutter
+	<B><FONT COLOR="#A020F0">setevent</FONT></B> EVENT_BEAT_TWINS_AMY_AND_MAY
+	<B><FONT COLOR="#A020F0">setevent</FONT></B> EVENT_BEAT_BUG_CATCHER_BENNY
+	<B><FONT COLOR="#A020F0">setevent</FONT></B> EVENT_BEAT_BUG_CATCHER_AL
+	<B><FONT COLOR="#A020F0">setevent</FONT></B> EVENT_BEAT_BUG_CATCHER_JOSH
+	<B><FONT COLOR="#A020F0">writetext</FONT></B> BugsyText_HiveBadgeSpeech
+	<B><FONT COLOR="#A020F0">promptbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">verbosegiveitem</FONT></B> TM_FURY_CUTTER
+	<B><FONT COLOR="#A020F0">iffalse</FONT></B> .NoRoomForFuryCutter
+	<B><FONT COLOR="#A020F0">setevent</FONT></B> EVENT_GOT_TM49_FURY_CUTTER
+	<B><FONT COLOR="#A020F0">writetext</FONT></B> BugsyText_FuryCutterSpeech
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">.GotFuryCutter:</FONT></B>
+	<B><FONT COLOR="#A020F0">writetext</FONT></B> BugsyText_BugMonsAreDeep
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B><B><FONT COLOR="#0000FF">.NoRoomForFuryCutter:</FONT></B>
+	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">AzaleaGymActivateRockets:</FONT></B>
+	<B><FONT COLOR="#A020F0">ifequal</FONT></B> 7, .RadioTowerRockets
+	<B><FONT COLOR="#A020F0">ifequal</FONT></B> 6, .GoldenrodRockets
+	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">.GoldenrodRockets:</FONT></B>
+	<B><FONT COLOR="#A020F0">jumpstd</FONT></B> goldenrodrockets
+
+<B><FONT COLOR="#0000FF">.RadioTowerRockets:</FONT></B>
+	<B><FONT COLOR="#A020F0">jumpstd</FONT></B> radiotowerrockets
+
+<B><FONT COLOR="#0000FF">TrainerTwinsAmyandmay1:</FONT></B>
+	<B><FONT COLOR="#A020F0">trainer</FONT></B> TWINS, AMYANDMAY1, EVENT_BEAT_TWINS_AMY_AND_MAY, TwinsAmyandmay1SeenText, TwinsAmyandmay1BeatenText, 0, .AfterScript
+
+<B><FONT COLOR="#0000FF">.AfterScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">endifjustbattled
+</FONT></B>	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> TwinsAmyandmay1AfterBattleText
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">TrainerTwinsAmyandmay2:</FONT></B>
+	<B><FONT COLOR="#A020F0">trainer</FONT></B> TWINS, AMYANDMAY2, EVENT_BEAT_TWINS_AMY_AND_MAY, TwinsAmyandmay2SeenText, TwinsAmyandmay2BeatenText, 0, .AfterScript
+
+<B><FONT COLOR="#0000FF">.AfterScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">endifjustbattled
+</FONT></B>	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> TwinsAmyandmay2AfterBattleText
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">TrainerBugCatcherBenny:</FONT></B>
+	<B><FONT COLOR="#A020F0">trainer</FONT></B> BUG_CATCHER, BUG_CATCHER_BENNY, EVENT_BEAT_BUG_CATCHER_BENNY, BugCatcherBennySeenText, BugCatcherBennyBeatenText, 0, .AfterScript
+
+<B><FONT COLOR="#0000FF">.AfterScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">endifjustbattled
+</FONT></B>	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> BugCatcherBennyAfterBattleText
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">TrainerBugCatcherAl:</FONT></B>
+	<B><FONT COLOR="#A020F0">trainer</FONT></B> BUG_CATCHER, AL, EVENT_BEAT_BUG_CATCHER_AL, BugCatcherAlSeenText, BugCatcherAlBeatenText, 0, .AfterScript
+
+<B><FONT COLOR="#0000FF">.AfterScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">endifjustbattled
+</FONT></B>	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> BugCatcherAlAfterBattleText
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">TrainerBugCatcherJosh:</FONT></B>
+	<B><FONT COLOR="#A020F0">trainer</FONT></B> BUG_CATCHER, JOSH, EVENT_BEAT_BUG_CATCHER_JOSH, BugCatcherJoshSeenText, BugCatcherJoshBeatenText, 0, .AfterScript
+
+<B><FONT COLOR="#0000FF">.AfterScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">endifjustbattled
+</FONT></B>	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> BugCatcherJoshAfterBattleText
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">AzaleaGymGuyScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">faceplayer
+</FONT></B>	<B><FONT COLOR="#A020F0">checkevent</FONT></B> EVENT_BEAT_BUGSY
+	<B><FONT COLOR="#A020F0">iftrue</FONT></B> .AzaleaGymGuyWinScript
+	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> AzaleaGymGuyText
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">.AzaleaGymGuyWinScript:</FONT></B>
+	<B><FONT COLOR="#A020F0">opentext
+</FONT></B>	<B><FONT COLOR="#A020F0">writetext</FONT></B> AzaleaGymGuyWinText
+	<B><FONT COLOR="#A020F0">waitbutton
+</FONT></B>	<B><FONT COLOR="#A020F0">closetext
+</FONT></B>	<B><FONT COLOR="#A020F0">end
+</FONT></B>
+<B><FONT COLOR="#0000FF">AzaleaGymStatue:</FONT></B>
+	<B><FONT COLOR="#A020F0">checkflag</FONT></B> ENGINE_HIVEBADGE
+	<B><FONT COLOR="#A020F0">iftrue</FONT></B> .Beaten
+	<B><FONT COLOR="#A020F0">jumpstd</FONT></B> gymstatue1
+<B><FONT COLOR="#0000FF">.Beaten:</FONT></B>
+	<B><FONT COLOR="#A020F0">gettrainername</FONT></B> STRING_BUFFER_4, BUGSY, BUGSY1
+	<B><FONT COLOR="#A020F0">jumpstd</FONT></B> gymstatue2
+
+<B><FONT COLOR="#0000FF">BugsyText_INeverLose:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;I'm BUGSY!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;I never lose when&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;it comes to bug&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;My research is&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;going to make me&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;the authority on&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;bug #MON!&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Let me demonstrate&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;what I've learned&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;from my studies.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugsyText_ResearchIncomplete:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Whoa, amazing!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;You're an expert&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;on #MON!&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;My research isn't&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;complete yet.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;OK, you win. Take&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;this BADGE.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">Text_ReceivedHiveBadge:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;&lt;PLAYER&gt; received&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;HIVEBADGE.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugsyText_HiveBadgeSpeech:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Do you know the&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;benefits of HIVE-&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;BADGE?&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;If you have it,&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON up to L30&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;will obey you,&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;even traded ones.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON that know&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;CUT will be able&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;to use it outside&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;of battle too.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Here, I also want&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;you to have this.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugsyText_FuryCutterSpeech:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;TM49 contains&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;FURY CUTTER.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;If you don't miss,&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;it gets stronger&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;every turn.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;The longer your&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;battle goes, the&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;better it gets.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Isn't that great?&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;I discovered it!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugsyText_BugMonsAreDeep:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Bug #MON are&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;deep. There are&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;many mysteries to&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;be explored.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Study your favor-&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;ites thoroughly.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherBennySeenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Bug #MON evolve&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;young. So they get&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;stronger that much&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;faster.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherBennyBeatenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Just evolving&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;isn't enough!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherBennyAfterBattleText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON become&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;stronger if they&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;evolve. Really!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherAlSeenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Bug #MON are&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;cool and tough!&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;I'll prove it to&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;you!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherAlBeatenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;You proved how&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;tough you are…&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherAlAfterBattleText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;They're so cool,&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;but most girls&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;don't like bug&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;I don't know why…&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherJoshSeenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;You saved all the&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;SLOWPOKE? Whew,&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;you're mighty!&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;But my grown-up&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON are pretty&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;tough too!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherJoshBeatenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Urrgggh!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">BugCatcherJoshAfterBattleText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;I guess I should&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;teach them better&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;moves…&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">TwinsAmyandmay1SeenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;AMY: Hi! Are you&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;challenging the&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;LEADER? No way!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">TwinsAmyandmay1BeatenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;AMY &amp; MAY: Oh,&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;double goodness!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">TwinsAmyandmay1AfterBattleText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;AMY: You're&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;really strong!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">TwinsAmyandmay2SeenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;MAY: You want to&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;see the LEADER?&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;We come first!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">TwinsAmyandmay2BeatenText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;AMY &amp; MAY: Oh,&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;double goodness!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">TwinsAmyandmay2AfterBattleText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;MAY: Our bug #-&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;MON lost! Oh, what&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;a shame.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">AzaleaGymGuyText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Yo, challenger!&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;BUGSY's young, but&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;his knowledge of&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;bug #MON is for&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;real.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;It's going to be&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;tough without my&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;advice.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Let's see… Bug&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON don't like&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;fire.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Flying-type moves&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;are super-effec-&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;tive too.&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">AzaleaGymGuyWinText:</FONT></B>
+	<B><FONT COLOR="#A020F0">text</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;Well done! That&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;was a great clash&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;of talented young&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;trainers.&quot;</FONT></B>
+
+	<B><FONT COLOR="#A020F0">para</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;With people like&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">line</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;you, the future of&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">cont</FONT></B> <B><FONT COLOR="#BC8F8F">&quot;#MON is bright!&quot;</FONT></B>
+	<B><FONT COLOR="#A020F0">done
+</FONT></B>
+<B><FONT COLOR="#0000FF">AzaleaGym_MapEvents:</FONT></B>
+	<B><FONT COLOR="#A020F0">db</FONT></B> 0, 0 <I><FONT COLOR="#B22222">; filler
+
+</FONT></I>	<B><FONT COLOR="#A020F0">db</FONT></B> 2 <I><FONT COLOR="#B22222">; warp events
+	warp_event  4, 15, AZALEA_TOWN, 5
+</FONT></I>	<B><FONT COLOR="#A020F0">warp_event</FONT></B>  5, 15, AZALEA_TOWN, 5
+
+	<B><FONT COLOR="#A020F0">db</FONT></B> 0 <I><FONT COLOR="#B22222">; coord events
+
+</FONT></I>	<B><FONT COLOR="#A020F0">db</FONT></B> 2 <I><FONT COLOR="#B22222">; bg events
+	bg_event  3, 13, BGEVENT_READ, AzaleaGymStatue
+</FONT></I>	<B><FONT COLOR="#A020F0">bg_event</FONT></B>  6, 13, BGEVENT_READ, AzaleaGymStatue
+
+	<B><FONT COLOR="#A020F0">db</FONT></B> 7 <I><FONT COLOR="#B22222">; object events
+	object_event  5,  7, SPRITE_BUGSY, SPRITEMOVEDATA_SPINRANDOM_SLOW, 0, 0, -1, -1, PAL_NPC_GREEN, OBJECTTYPE_SCRIPT, 0, AzaleaGymBugsyScript, -1
+</FONT></I>	<B><FONT COLOR="#A020F0">object_event</FONT></B>  5,  3, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_SPINRANDOM_FAST, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 2, TrainerBugCatcherBenny, -1
+	<B><FONT COLOR="#A020F0">object_event</FONT></B>  8,  8, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherAl, -1
+	<B><FONT COLOR="#A020F0">object_event</FONT></B>  0,  2, SPRITE_BUG_CATCHER, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_BROWN, OBJECTTYPE_TRAINER, 3, TrainerBugCatcherJosh, -1
+	<B><FONT COLOR="#A020F0">object_event</FONT></B>  4, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay1, -1
+	<B><FONT COLOR="#A020F0">object_event</FONT></B>  5, 10, SPRITE_TWIN, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_TRAINER, 1, TrainerTwinsAmyandmay2, -1
+	<B><FONT COLOR="#A020F0">object_event</FONT></B>  7, 13, SPRITE_GYM_GUY, SPRITEMOVEDATA_STANDING_DOWN, 0, 0, -1, -1, PAL_NPC_RED, OBJECTTYPE_SCRIPT, 0, AzaleaGymGuyScript, -1
+</PRE>
+<HR>
+<ADDRESS>Generated by <A HREF="http://www.iki.fi/~mtr/genscript/">GNU Enscript 1.6.5.90</A>.</ADDRESS>
+</BODY>
+</HTML>
